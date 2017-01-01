@@ -21,7 +21,7 @@ class Configuration extends AbstractConfiguration {
    protected function config() {
       parent::setNamespaceController("test\controller");
       parent::setNamespaceValidateAnnotation("test\Validacao");
-      parent::setModeOptimized(false);
+      //parent::setModeOptimized();
       //parent::setActionDefault("gravar", "pessoa");
       // parent::setActionDefault('bemVindos', 'BoasVindasController');
       parent::setNamespaceAnnotation("test\attributes");

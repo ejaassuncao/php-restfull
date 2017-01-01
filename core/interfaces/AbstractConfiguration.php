@@ -65,7 +65,7 @@ abstract class AbstractConfiguration {
    }
    
    protected function setModeOptimized($boolean) {
-      self::$configurations['modeOptimized']= $boolean;
+      self::$configurations['modeOptimized']= true;
    }
    
    public function getConfigurations() {
