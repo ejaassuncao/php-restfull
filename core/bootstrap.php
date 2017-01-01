@@ -43,5 +43,6 @@ core\api\HbCore::getInstance($router, $url, $httpRequest)->invoker();
 $executionTime->End();
 
 
-echo "<HR/>Tempo de execucao: ".$executionTime ."<HR/>";
-
+if(!$config->getConfigurations()['modeOptimized']){
+   echo "<HR/>Time execution: ".$executionTime ."<HR/>";
+}
