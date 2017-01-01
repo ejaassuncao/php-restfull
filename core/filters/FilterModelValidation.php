@@ -26,6 +26,11 @@ class FilterModelValidation extends \core\interfaces\HbFilter {
       $nameSpace = array($stack->getRouter()->getNamespaceValidateAnnotation(), 'core\annotation_validate');
 
       $reflectionClass = $args->getClass();
+      
+      if ($reflectionClass==null) {
+          return $stack->next();         
+      }
+      
       $props = $reflectionClass->getProperties(\ReflectionProperty::IS_PRIVATE);
 
       foreach ($props as $prop) {
