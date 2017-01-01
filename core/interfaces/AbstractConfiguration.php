@@ -24,10 +24,15 @@ abstract class AbstractConfiguration {
    public function __construct() {
       if (self::$configurations == null) {
          self::$configurations['modeOptimized'] =false;
+         self::$configurations['viewTimePerformace'] = false;
          self::$configurations['filters'] = array();
          $this->config();
         // $this->loadFilters();
       }
+   }
+   
+   protected function viewTimePerformace() {
+       self::$configurations['viewTimePerformace'] = true;
    }
    
    function loadFilters() {

@@ -25,6 +25,7 @@ class Configuration extends AbstractConfiguration {
       //parent::setActionDefault("gravar", "pessoa");
       // parent::setActionDefault('bemVindos', 'BoasVindasController');
       parent::setNamespaceAnnotation("test\attributes");
+      parent::viewTimePerformace();
       // parent::setGlobalFilter(new \test\filters\ExceptionFilter());
       //parent::setGlobalFilter(new \test\filters\ModelValidation());
       // parent::setGlobalFilter(new \test\filters\UserFilter());
