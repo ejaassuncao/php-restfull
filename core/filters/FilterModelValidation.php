@@ -20,11 +20,14 @@ class FilterModelValidation extends \core\interfaces\HbFilter {
       //esse meu excutor imprime não tela o erro e não continua o processo
       $Messages = array();
       $metod = $stack->getObjectExecuted();
-
+      
       $args = current($metod->getParameters());
-
+      
+      if(!$args){
+          return $stack->next();  
+      }
+      
       $nameSpace = array($stack->getRouter()->getNamespaceValidateAnnotation(), 'core\annotation_validate');
-
       $reflectionClass = $args->getClass();
       
       if ($reflectionClass==null) {

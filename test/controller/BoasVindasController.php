@@ -15,6 +15,11 @@ namespace test\controller;
  */
 class BoasVindasController {
 
+   
+   public function index() {
+      echo "<hr>Boas vindas ao rest full-php<hr>";
+   }
+   
    /**
     * @Get
     */

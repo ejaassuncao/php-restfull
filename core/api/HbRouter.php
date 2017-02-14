@@ -26,6 +26,19 @@ class HbRouter {
       $this->mapMetod =  $this->mapAction->getMapMetod();
    }
 
+   public function getMappingController() {      
+      return $this->mapController;
+   }
+   
+   public function getMappingAction() {      
+      return $this->mapAction;
+   }
+   
+   public function getMappingMetod() {      
+      return $this->$this->mapMetod;
+   }
+   
+   
    //metodos publicos...
    public function getController($controller) {
       $rota = $this->checkController($controller);
@@ -68,6 +81,10 @@ class HbRouter {
 
    public function getConfig() {
       return $this->config;
+   }
+   
+   public function getMappingCDI() {
+      return $this->config['MappingCDI'];
    }
 
    public function getNamespaceAnnotation() {

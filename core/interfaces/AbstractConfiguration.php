@@ -23,23 +23,24 @@ abstract class AbstractConfiguration {
 
    public function __construct() {
       if (self::$configurations == null) {
-         self::$configurations['modeOptimized'] =false;
+         self::$configurations['modeOptimized'] = false;
          self::$configurations['viewTimePerformace'] = false;
          self::$configurations['filters'] = array();
+         self::$configurations['MappingCDI'] = null;
          $this->config();
-        // $this->loadFilters();
+         // $this->loadFilters();
       }
    }
-   
+
    protected function viewTimePerformace() {
-       self::$configurations['viewTimePerformace'] = true;
+      self::$configurations['viewTimePerformace'] = true;
    }
-   
+
    function loadFilters() {
       //filtros no sistema
       //pode deixar para o usuario setar se ele quer utilizar ow não
-     // array_push(self::$configurations['filters'], new \core\filters\AttributesRunTime());
-     // array_push(self::$configurations['filters'], new \core\filters\FilterModelValidation);
+      // array_push(self::$configurations['filters'], new \core\filters\AttributesRunTime());
+      // array_push(self::$configurations['filters'], new \core\filters\FilterModelValidation);
    }
 
    protected function setNamespaceController($namespaceController) {
@@ -47,31 +48,37 @@ abstract class AbstractConfiguration {
       self::$configurations['pathAbsController'] = BASE_PATH . $namespaceController . DIRECTORY_SEPARATOR;
    }
 
-   protected function setActionDefault($actionDefault,$controller) {
+   protected function setActionDefault($actionDefault, $controller) {
       self::$configurations['actionDefault'] = $actionDefault;
       self::$configurations['controllerDefault'] = $controller;
    }
-   
+
+   protected function onCDI(AbstractMappingCDI $cdi = null) {
+      if ($cdi != null) {
+         self::$configurations['MappingCDI'] = $cdi;
+      } else {
+         self::$configurations['MappingCDI'] = new \core\api\HBMappingCoreCDI();
+      }
+   }
+
    protected function setNamespaceAnnotation($namespaceAnnotation) {
       self::$configurations['namespaceAnnotation'] = $namespaceAnnotation;
-   } 
-   
+   }
+
    public static function setNamespaceValidateAnnotation($namespaceValidateAnnotation) {
       self::$configurations['namespaceValidateAnnotation'] = $namespaceValidateAnnotation;
    }
-      
-   protected function setGlobalFilter(HbFilter $param) {     
+
+   protected function setGlobalFilter(HbFilter $param) {
       array_push(self::$configurations['filters'], $param);
    }
-   
-   protected function setModeOptimized($boolean) {
-      self::$configurations['modeOptimized']= true;
+
+   protected function setModeOptimized() {
+      self::$configurations['modeOptimized'] = true;
    }
-   
+
    public function getConfigurations() {
       return self::$configurations;
    }
-
-  
 
 }

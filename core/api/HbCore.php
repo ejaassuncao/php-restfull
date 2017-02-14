@@ -7,6 +7,7 @@ use \core\helper\HB_Error_Helper;
 use \core\api\StackFilter;
 use \core\helper\HttpRequest;
 use \core\api\HbUrl;
+use \core\api\HBCDI;
 
 /**
  * Description of init
@@ -22,7 +23,6 @@ class HbCore {
       $this->router = $router;
       $this->url = $url;
       $this->httpRequest = $httpRequest;
-
       $this->ActionUrl = $this->url->getAction();
    }
 
@@ -64,38 +64,11 @@ class HbCore {
 
       $objectExecuted = $class->getMethod($this->router->getAction($controllerUrl, $actionUrl));
       
-      //instancia o controller
-      //Esse cara aqui Aplica o CDI (Injecao de Dependencia) new modelCDI($class);
-      // $c = new \test\entity\Produto(1, 'Elton', 3.76);
-      // $object = $class->newInstance($c);      
-//      foreach ($class->getConstructor()->getParameters() as $pa1) {
-//         // param name
-//         var_dump($pa1->name);
-//
-//         // param type hint (or null, if not specified).
-//         var_dump($pa1->getClass()->name);
-//
-//         // finds out if the param is required or optional
-//         var_dump($pa1->isOptional());
-//      }
-      //var_dump($class);
-      $controller = $class->newInstance();
-
+      //--------------------Inicia processo de CDI----------------------------- 
+      $cdi =($this->router->getMappingCDI()!=null)? new HBCDI($class, $this->router->getMappingCDI(),$this->router, $this->url, $this->httpRequest):new HBCDI($class) ;     
+      $controller=$cdi->newInstance();      
+     //--------------------Fecha processo de CDI-----------------------------      
       
-      //Criar a classe binder para
-      //$modelo = new ModelBinder($param)
-      //      foreach ($metod->getParameters() as $p) {
-      ////         // param name
-      ////         var_dump($p->name);
-      ////         var_dump($p->isOptional());
-      ////         var_dump($p->getClass() == null ? null : $p->getClass()->getName());
-      //      }
-      // var_dump($param);
-      //Fazer toda parte de validação
-     //  $modelo = new modelValidation($controller);
-      //aqui vem uma lista de classes globais a serem executadas
-      //execução 
-
       //*****Executa os Filtos**********
       $stack = new StackFilter($this->router, $controller, $objectExecuted, $paramUrl, $this->httpRequest, $metodoUrl);
       $filter = current($this->router->getFilters());

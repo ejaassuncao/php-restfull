@@ -20,12 +20,14 @@ class Configuration extends AbstractConfiguration {
 
    protected function config() {
       parent::setNamespaceController("test\controller");
-      parent::setNamespaceValidateAnnotation("test\Validacao");
+      parent::setNamespaceValidateAnnotation("test\validacao");
       //parent::setModeOptimized();
-      //parent::setActionDefault("gravar", "pessoa");
-      // parent::setActionDefault('bemVindos', 'BoasVindasController');
+     // parent::setActionDefault("gravar", "pessoa");
+      parent::setActionDefault('index', 'BoasVindasController');
       parent::setNamespaceAnnotation("test\attributes");
       parent::viewTimePerformace();
+      //  parent::onCDI();
+      parent::onCDI(new \test\cdi\MyClasseCDI());
       // parent::setGlobalFilter(new \test\filters\ExceptionFilter());
       //parent::setGlobalFilter(new \test\filters\ModelValidation());
       // parent::setGlobalFilter(new \test\filters\UserFilter());

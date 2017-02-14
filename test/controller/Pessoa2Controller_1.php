@@ -13,7 +13,7 @@ namespace test\controller;
  * @Controller(pessoa)
  * 
  */
-class Pessoa2Controller {
+class Pessoa2Controller_1 {
   
     /**
     *  @Post(grava)
