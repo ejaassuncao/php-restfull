@@ -1,2 +1,2 @@
 # php-restful
-Frameork php para se trabalhar com restful
+Framework php para se trabalhar com restful
