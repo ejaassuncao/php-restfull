@@ -1,2 +1,2 @@
-# php-restful
-Framework php para se trabalhar com restful
+# php-restfull
+Framework php para se trabalhar com restfull
