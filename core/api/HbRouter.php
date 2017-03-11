@@ -23,7 +23,7 @@ class HbRouter {
       $this->config = $config->getConfigurations();
       $this->mapController = $mapController;      
       $this->mapAction  = $this->mapController->getMapAction();      
-      $this->mapMetod =  $this->mapAction->getMapMetod();
+      $this->mapMetod =  $this->mapAction->getMapMetod();      
    }
 
    public function getMappingController() {      
@@ -35,10 +35,9 @@ class HbRouter {
    }
    
    public function getMappingMetod() {      
-      return $this->$this->mapMetod;
+      return $this->mapMetod;
    }
-   
-   
+      
    //metodos publicos...
    public function getController($controller) {
       $rota = $this->checkController($controller);

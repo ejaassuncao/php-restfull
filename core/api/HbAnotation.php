@@ -18,6 +18,7 @@ class HbAnotation {
    public static $PARTTEN_DELETE_PARAM = "#@Delete\((.*?)\)|@Delete#";
    public static $PARTTEN_EXIST_PARAM = "#@#";
    public static $PARTTEN_LIST_PARAM = "#@List\((.*?)\)#";
+   public static $PARTTEN_INJECT_PARAM = "#@Inject#"; 
 
    public static function GetAnnotations($comment_string) {
       //$string = trim(str_replace(array("/", "*", " ", '\n'), "", trim($comment_string)));

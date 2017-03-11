@@ -15,41 +15,64 @@ use core\helper\HttpRequest;
  */
 class HBCDI {
 
-   private $class, $mappingCDI;
-   private $nome_variavel_parm, $nome_class_parm, $isOpcional;
-   private $param_array_object;
+   private $ClassController, $mappingCDI, $router, $url, $httpRequest, $isAnnotationInjection;
 
-   public function __construct($class, AbstractMappingCDI $mappingCDI=null, HbRouter $router =null, HbUrl $url=null, HttpRequest $httpRequest=null) {
-      $this->class = $class;
+   public function __construct($class, AbstractMappingCDI $mappingCDI = null, HbRouter $router = null, HbUrl $url = null, HttpRequest $httpRequest = null) {
+      $this->ClassController = $class;
       $this->mappingCDI = $mappingCDI;
-      $this->param_array_object = array();
-      
-      if($this->mappingCDI!=null){         
-         $this->mappingCDI->add(HbRouter::class,$router);
-         $this->mappingCDI->add(HbUrl::class,$url);
-         $this->mappingCDI->add(HttpRequest::class,$httpRequest);
-         $this->mappingCDI->mappingClass();
-      }
+      $this->router = $router;
+      $this->url = $url;
+      $this->httpRequest = $httpRequest;
+      $this->isAnnotationInjection = $this->existeAnotationInject($this->ClassController);
+      $this->loadClassCDI();
    }
 
    public function newInstance() {
-      if (count($this->class->getConstructor()) > 0 && count($this->class->getConstructor()->getParameters()) > 0 && $this->mappingCDI != null) {
-         foreach ($this->class->getConstructor()->getParameters() as $pa1) {
-            $this->nome_variavel_parm = $pa1->name; 
-            $this->nome_class_parm =$pa1->getClass()->getName();
-            $this->isOpcional = $pa1->isOptional();            
-            $object = $this->mappingCDI->getObect($this->nome_class_parm); 
-            if ($object == null) {              
-               array_push($this->param_array_object, $pa1->getClass()->newInstance());
+      $ctrl =$this->recusive($this->ClassController, $this->isAnnotationInjection);      
+      return $ctrl;
+   }
+
+   private function recusive($class, $isInjection) {     
+      //e não pode existe a anotação offCDI
+      if (count($class->getConstructor()) > 0 && count($class->getConstructor()->getParameters()) > 0 && $this->mappingCDI != null && $isInjection == true) {
+         //aqui poderia ser recussivo para ela entrar a dentro e verificar se existe CDI       
+         $param_array_object=array();
+        
+         foreach ($class->getConstructor()->getParameters() as $pa1) {         
+            //$this->isOpcional = $pa1->isOptional();
+            $classeParam = $pa1->getClass();
+            $object = $this->mappingCDI->getObect($pa1->getClass()->getName());
+            
+            if ($object == null) {
+               if (count($classeParam->getConstructor()) > 0 && count($classeParam->getConstructor()->getParameters()) > 0) {
+                  $object = $this->recusive($classeParam, $this->existeAnotationInject($classeParam));                 
+               } else {
+                  $object = $classeParam->newInstance();
+               }
+               array_push($param_array_object, $object);
             } else {
-               array_push($this->param_array_object, $object);
+               array_push($param_array_object, $object);
             }
          }
-         return $this->class->newInstanceArgs($this->param_array_object);         
+         
+         return $class->newInstanceArgs($param_array_object);
       }
-      
-      return $this->class->newInstance();
-     
+      return $class->newInstance();
+   }
+
+   private function loadClassCDI() {
+      $this->mappingCDI->add(HbRouter::class, $this->router);
+      $this->mappingCDI->add(HbUrl::class, $this->url);
+      $this->mappingCDI->add(HttpRequest::class, $this->httpRequest);
+      $this->mappingCDI->mappingClass();
+   }
+
+   private function existeAnotationInject($class) {
+      if ($class->getConstructor() != null) {
+         $comment_string = $class->getConstructor()->getDocComment();
+         return HbAnotation::existAnnotation($comment_string, HbAnotation::$PARTTEN_INJECT_PARAM);
+      }
+      return false;
    }
 
 }

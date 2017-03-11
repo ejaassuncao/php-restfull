@@ -12,7 +12,7 @@ namespace core\api;
 class HBMappingCoreCDI  extends \core\interfaces\AbstractMappingCDI{
    
    public function mappingClass() {
-      
+       
    }
 
 }
