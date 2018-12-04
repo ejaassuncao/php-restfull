@@ -33,7 +33,7 @@ function hb_exception_handler($exception) {
    hb_error_handler($last_error['type'], $exception->getMessage(), $exception->getFile(), $exception->getLine());
    exit(1); // EXIT_ERROR
 }
-
+$level =  null;
 if ($level == null) {
    if (defined("E_DEPRECATED")) {
       $level = E_ALL & ~E_DEPRECATED;
