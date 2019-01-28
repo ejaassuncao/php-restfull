@@ -54,7 +54,9 @@ use core\interfaces\AbstractConfiguration;
 
 class Configuration extends AbstractConfiguration {
    protected function config() {
+   
       parent::setNamespaceController("test\controller");
+      
       parent::setActionDefault('index', 'BoasVindasController');
       
       parent::onCDI();
@@ -63,9 +65,11 @@ class Configuration extends AbstractConfiguration {
       parent::setModeOptimized();
       
       parent::setNamespaceAnnotation("test\attributes");
+      
       parent::setNamespaceValidateAnnotation("test\validacao");
       
        parent::setGlobalFilter(new \core\filters\AttributesRunTime());
+       
        parent::setGlobalFilter(new \core\filters\FilterModelValidation());
    }
 }
@@ -83,13 +87,31 @@ Existem outros parametos na classe "Configuration"
     namespace test\cdi;
     
     class MyClasseCDI extends \core\interfaces\AbstractMappingCDI {
+      
        public function mappingClass() {      
           parent::add(\test\entity\IAlgumaCoisa::class, new \test\entity\AlgumaClasse(new \test\entity\Categoria()));   
        }
+       
     }
 ```
 Nesse caso temos uma interface "IAlgumaCoisa" que implementa Uma classe concreta "AlgumaClasse" que por sua vez recebe uma categoria.
+Assim sendo se criarmos um controlador com um construtor. O framework sabe criar um instacia da classe "IAlgumaCoisa"
 
+```sh
+<?php
 
+namespace test\controller;
 
-
+class BoasVindasController {
+   
+   private $produto;
+   
+   public function __construct(\sistema\model\gerador\entity\IAlgumaCoisa $produto){
+      $this->produto = $produto;      
+   }
+   
+   public function mostrarProduto() {
+     var_dump($this->produto);
+   }
+}
+```
