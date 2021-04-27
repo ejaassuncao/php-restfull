@@ -7,11 +7,11 @@ Framework php para se trabalhar com restfull. Este framework traz o conceitos de
   - Parsear dados e bind do modelo de Request Json para Objeto e de Objeto para Json;
   - Criar filtros nivel global, para controles de transaçõe, commits, e excessões;
   - Anotar filtros de nivel de ações. para controles de permissões etc..
-  - Usar CDI (Injeção de dependecia) nos controles os nas classes de modelo. Usar interface para Ijeções de dependencia. Maperar classes para utilização de CDI.
-  - Usar anotações de validações ou criar suas anotações para validar a ebtrada de dados no seu modelo.
+  - Usar CDI (Injeção de dependecia) nos controles os nas classes de modelo. Usar interface para Injeções de dependencia. Maperar classes para utilização de CDI.
+  - Usar anotações de validações ou criar suas anotações para validar a entrada de dados do seu modelo.
   - Tipar modelo de dados para Bindar seus modelos de acordo com a request em formado json.
 Como esses recuso fica simples trabalhar com as requisições vindas do front-End.
-O Php Restful trabalhar com as trotas da seguinte foroma
+O Php Restful trabalhar com as rotas da seguinte forma:
 > [protocolo]://[apicaçção]/controlador/acao[ ? ou /]paramentos
 >[http]://api/meuController/mensagem/texto="ola mundo"
 ou
@@ -22,16 +22,21 @@ ou
 Criar seu primeiro controler que imprime a mensagem "Ola Mundo";
 Imaginando que nosso projeto chamasse API:
 
-Chamada na url: http://api/BoasVindas/index
+Chamada na url: http://api/boas-vindas/home
 saida: "ola mundo"
 Codigo:
 ```sh
 <?php
 
 namespace test\controller;
-
+/*
+*@boas-vindas
+*/
 class BoasVindasController {
    
+   /*
+   * @home
+   */
    public function index() {
       echo "olha mundo";
    }
