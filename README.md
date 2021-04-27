@@ -29,13 +29,15 @@ Codigo:
 <?php
 
 namespace test\controller;
-/*
-*@boas-vindas
-*/
+
+/**
+ * @Controller(boas-vindas)
+ * 
+ */
 class BoasVindasController {
    
    /*
-   * @home
+   * @Get(home)
    */
    public function index() {
       echo "olha mundo";
