@@ -223,3 +223,27 @@ class HelpController {
 
 ```
 
+
+- Exemplo03: Podemos criar nossas proprias anotações, nesse caso para controlar uma transação:
+```sh
+<?php
+
+namespace test\controller;
+
+/**
+ * @Controller(pessoa)
+ * 
+ */
+class Pessoa2Controller_1 {
+     
+   /**
+    * @Post
+    * @Autenticacao(parametro=teste,teste2)
+    * @test\attributes\Transaction
+    */
+   public function Inserir($id,$fada) {
+      echo "<hr/>Executou dados do da busca{$id}";
+   }
+   
+   ```
+
