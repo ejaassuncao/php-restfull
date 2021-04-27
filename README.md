@@ -115,11 +115,8 @@ class BoasVindasController {
    
    public function __construct(\sistema\model\gerador\entity\IAlgumaCoisa $produto){
       $this->produto = $produto;      
-   }
-   
-   public function mostrarProduto() {
-     var_dump($this->produto);
-   }
+   }  
+  
 }
 ```
 
@@ -152,23 +149,30 @@ class BoasVindasController {
    }
    
    /**
-    * @Get
+    * @Post
     */
-   public function index3() {
+   public function inserir() {
       echo "<hr>Boas vindas controller3<hr>";
    }
    
    /**
     * @Get
     */
-   public function index4() {
+   public function Buscar() {
       echo "<hr>Boas vindas controller4<hr>";
    }
 
    /**
-    * @Get(inicio)
+    * @Put(Alterar)
     */
-   public function index2() {
+   public function Editar() {
+      echo "<hr>Boas vindas controller2<hr>";
+   }
+   
+    /**
+    * @Delete(exluir)
+    */
+   public function Deletar() {
       echo "<hr>Boas vindas controller2<hr>";
    }
 
@@ -198,20 +202,12 @@ class HelpController {
 
    private $router, $url, $httpRequest, $produto;
 
-//   public function __construct() {
-//      $this->produto = new Produto ();
-//   }
-
-   public function __construct(\sistema\model\gerador\entity\IAlgumaCoisa $produto){
-      $this->produto = $produto;      
+   public function __construct(HbRouter $router, HbUrl $url, HttpRequest $httpRequest, Produto $produto) {      
+      $this->router = $router;
+      $this->url = $url;
+      $this->httpRequest= $httpRequest;   
+      $this->produto = $produto;   
    }
-//   
-//   public function __construct(HbRouter $router, HbUrl $url, HttpRequest $httpRequest, Produto $produto) {      
-//      $this->router = $router;
-//      $this->url = $url;
-//      $this->httpRequest= $httpRequest;   
-//      $this->produto = $produto;   
-//   }
 
    function Index() {
       print_r('<pre>');      
