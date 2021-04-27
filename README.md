@@ -122,3 +122,6 @@ class BoasVindasController {
    }
 }
 ```
+
+Alguns Exemplos de anotaçãoe s passagens de paramentros:
+https://raw.githubusercontent.com/ejaassuncao/php-restfull/master/test/controller/Pessoa2Controller_1.php
