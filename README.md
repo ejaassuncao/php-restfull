@@ -124,6 +124,8 @@ class BoasVindasController {
 ```
 
 Alguns Exemplos de anotações:
+Exemplo01: 
+- Podemos usar varios gets na mesma classe
 
  ```sh
 
